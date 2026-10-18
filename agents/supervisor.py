@@ -19,6 +19,11 @@ def select_agent(question: str) -> str:
     - Return exactly one word: coding, general, or collaborate.
     - Choose collaborate only when both agents provide distinct value.
     - Do not answer the user's question.
+    - If the user explicitly asks agents to collaborate,
+      analyze, implement, and review a solution,
+      choose collaborate.
+    - If the user requests both implementation and
+     independent review, choose collaborate.
 
     
     Examples:
@@ -55,7 +60,18 @@ def select_agent(question: str) -> str:
 
   decision = response.strip().lower()
 
+  print(f"Supervisor raw decision: {response!r}")
+
   if decision in AVAILABLE_AGENTS:
     return decision
+
+  #Accept a clearly labeled decision
+  if decision.startswith("decision:"):
+    parsed = decision.split(":",1)[1].strip()
+
+    if parsed in AVAILABLE_AGENTS:
+      return parsed
+
+  print(f"Unrecognized routing decision: {response!r}")
 
   return "general"

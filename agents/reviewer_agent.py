@@ -45,8 +45,17 @@ def review(question: str, implementation: str) -> str:
     2. Evidence from code
     3. Suggested correction
 
-    FINAL ASSESSMENT:
-    PASS or NEEDS_REVISION 
+    
+   Choose exactly ONE final assessment based on your review:
+
+    - If no significant problems are found, output:
+      FINAL ASSESSMENT: PASS
+
+    - If significant problems are found, output:
+      FINAL ASSESSMENT: NEEDS_REVISION
+
+  The final assessment must be the LAST line of your response.
+  Never output both assessments.
   """
 
   user_prompt = f"""
